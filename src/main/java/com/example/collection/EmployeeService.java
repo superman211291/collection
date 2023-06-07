@@ -25,14 +25,8 @@ public class EmployeeService {
         }
     }
 
-    public void deleteEmployee(Integer index) {
-        if (index > employees.size()) {
-            throw new EmployeeNotFoundException();
-        } else {
-            employees.remove(index);
-        }
-    }
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(String firstName, String lastName) {
+        Employee employee = new Employee(firstName,lastName);
         if (employeeIsAdded(employee)) {
             employees.remove(employee);
         } else {
@@ -41,19 +35,18 @@ public class EmployeeService {
     }
 
 
-    public Employee searchEmployee(String nameOrSurname) {
-        Employee employee = null;
+    public Employee searchEmployee(String firstName, String lastName) {
+        Employee employee = new Employee(firstName,lastName);
         for (int i = 0; i < employees.size(); i++) {
-            employee = employees.get(i);
-            if (employee.getName().equals(nameOrSurname) ||
-                    employee.getSurname().equals(nameOrSurname)) {
-                break;
+            if (    employee.getName().equals(employees.get(i).getName()) &&
+                    employee.getSurname().equals(employees.get(i).getSurname())) {
+                employee = employees.get(i);
+                return employee;
             }
         }
-        if (employee == null) {
-            throw new EmployeeNotFoundException();
-        }
-        return employee;
+        throw new EmployeeNotFoundException();
+
+
     }
 
     public boolean employeeIsAdded(Employee employee) {

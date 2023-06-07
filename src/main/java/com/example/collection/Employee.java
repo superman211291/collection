@@ -8,15 +8,11 @@ public class Employee {
     private String name;
     private String surname;
 
-    public Employee(String name, String surname, String patronymic, int department, float salary) {
-        if (department<1 || department >5){
-            throw new IllegalArgumentException("Номер отдела может быть в диапазоне от 1 - 5 а он :" + department);
-        } else {
+    public Employee(String name, String surname) {
             this.name = name;
             this.surname = surname;
             this.id = count;
             count++;
-        }
     }
 
     public int getId() {
@@ -33,11 +29,8 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                '}';
+        return "{\"firstName\": " + "\"" + name +  "\", "+
+                   "\"lastName\": " + "\"" + surname +  "\" }" ;
     }
 
     @Override
