@@ -10,7 +10,7 @@ public class EmployeeService {
 
     private List<Employee> employees = new ArrayList<>();
 
-    private final Integer maxEmployee = 100;
+    private final Integer maxEmployee = 10;
 
 
     public void addEmployee(Employee employee) {
@@ -59,4 +59,13 @@ public class EmployeeService {
     }
 
 
+    public String getAll() {
+        StringBuilder stringBuilder = null;
+        for (Employee employee : employees) {
+            stringBuilder.append(employee.toString());
+            stringBuilder.append("/n");
+
+        }
+        return stringBuilder.toString();
+    }
 }

@@ -49,4 +49,9 @@ public class EmployeeController {
         return employee.toString();
     }
 
+    @GetMapping("/employee/getAll")
+    public String getAllEmployee() {
+        return employeeService.getAll();
+    }
+
 }
