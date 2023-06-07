@@ -60,10 +60,10 @@ public class EmployeeService {
 
 
     public String getAll() {
-        StringBuilder stringBuilder = null;
+        StringBuilder stringBuilder = new StringBuilder();
         for (Employee employee : employees) {
             stringBuilder.append(employee.toString());
-            stringBuilder.append("/n");
+            stringBuilder.append("\n");
 
         }
         return stringBuilder.toString();
