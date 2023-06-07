@@ -31,6 +31,9 @@ public class EmployeeService {
                break;
             }
         }
+        if (employee == null){
+            throw new EmployeeNotFoundException();
+        }
         return employee;
     }
 
