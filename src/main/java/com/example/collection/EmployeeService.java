@@ -29,7 +29,7 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName,lastName,1,0.0);
+        Employee employee = new Employee(firstName, lastName, 1, 0.0);
         if (employeeIsAdded(employee)) {
             employees.remove(employee);
         } else {
@@ -39,9 +39,9 @@ public class EmployeeService {
 
 
     public Employee searchEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName,lastName,1, 0.0d);
+        Employee employee = new Employee(firstName, lastName, 1, 0.0d);
         for (int i = 0; i < employees.size(); i++) {
-            if (    employee.getName().equals(employees.get(i).getName()) &&
+            if (employee.getName().equals(employees.get(i).getName()) &&
                     employee.getSurname().equals(employees.get(i).getSurname())) {
                 employee = employees.get(i);
                 return employee;
@@ -52,7 +52,7 @@ public class EmployeeService {
 
     }
 
-    public boolean employeeIsAdded(Employee employee) {
+    private boolean employeeIsAdded(Employee employee) {
 
         return employees
                 .stream()
@@ -60,19 +60,15 @@ public class EmployeeService {
     }
 
 
-    public String getAll() {
-        StringBuilder stringBuilder = new StringBuilder();
-        employees.forEach(employee -> stringBuilder.append(employee.toString()));
-        return stringBuilder.toString();
+    public List<Employee> getAll() {
+        return employees;
     }
 
-    public String getDepartmentsAll() {
-        StringBuilder stringBuilder = new StringBuilder();
-        employees
+    public List<Employee> getDepartmentsAll() {
+        return employees
                 .stream()
                 .sorted(Comparator.comparingInt(Employee::getDepartment))
-                .forEach(employee -> stringBuilder.append(employee.toString()));
-        return stringBuilder.toString();
+                .collect(Collectors.toList());
     }
 
     public void indexingSalary(int percent) {
@@ -83,33 +79,8 @@ public class EmployeeService {
         return employees
                 .stream()
                 .map(Employee::getSalary)
-                .mapToDouble(f-> f)
+                .mapToDouble(f -> f)
                 .sum();
-    }
-
-    public Employee getEmployeeMinSalary(List<Employee> employees) {
-
-        return employees
-                .stream()
-                .filter(employee -> employee.getSalary() == employees
-                        .stream()
-                        .map(Employee::getSalary)
-                        .min(Comparator.naturalOrder())
-                        .get())
-                .findFirst()
-                .get();
-    }
-
-    public Employee getEmployeeMaxSalary(List<Employee> employees) {
-        return employees
-                .stream()
-                .filter(employee -> employee.getSalary() == employees
-                        .stream()
-                        .map(Employee::getSalary)
-                        .max(Comparator.naturalOrder())
-                        .get())
-                .findFirst()
-                .get();
     }
 
     public double getAverageSalary() {
@@ -118,22 +89,24 @@ public class EmployeeService {
 
     public String getFullNameAll() {
         StringBuilder str = null;
-        employees.stream().forEach(employee->str.append(employee.getSurname() + " " + employee.getName()));
+        employees.stream().forEach(employee -> str.append(employee.getSurname() + " " + employee.getName()));
         return str.toString();
     }
 
     public Employee getDepartmentEmployeeMinSalary(int department) {
-        return getEmployeeMinSalary(employees
-                    .stream()
-                    .filter(employee -> employee.getDepartment() == department)
-                    .collect(Collectors.toList()));
+        return employees
+                .stream()
+                .filter(employee -> employee.getDepartment() == department)
+                .min(Comparator.comparing(Employee::getDepartment))
+                .orElseThrow(EmployeeAlreadyAddedException::new);
     }
 
     public Employee getDepartmentEmployeeMaxSalary(int department) {
-        return getEmployeeMaxSalary(employees
+        return employees
                 .stream()
                 .filter(employee -> employee.getDepartment() == department)
-                .collect(Collectors.toList()));
+                .max(Comparator.comparing(Employee::getDepartment))
+                .orElseThrow(EmployeeAlreadyAddedException::new);
     }
 
     public double getDepartmentOurSalary(int department) {
@@ -176,24 +149,24 @@ public class EmployeeService {
 
         return employees
                 .stream()
-                .filter(employee -> employee.getSalary()<salary)
+                .filter(employee -> employee.getSalary() < salary)
                 .collect(Collectors.toList());
     }
 
     public List<Employee> getAllEmployeeMoreSalary(float salary) {
         return employees
                 .stream()
-                .filter(employee -> employee.getSalary()>salary)
+                .filter(employee -> employee.getSalary() > salary)
                 .collect(Collectors.toList());
     }
 
     private Employee getEmployee(String name, String surname) {
-        Employee employee = new Employee(name,surname,1,0.0d);
-      return employees
-               .stream()
-               .filter(employee1 -> employee1.equals(employee))
-               .findFirst()
-              .orElseThrow(()->new IllegalArgumentException("Такого сотрудника не существует"));
+        Employee employee = new Employee(name, surname, 1, 0.0d);
+        return employees
+                .stream()
+                .filter(employee1 -> employee1.equals(employee))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Такого сотрудника не существует"));
 
     }
 
@@ -206,7 +179,7 @@ public class EmployeeService {
 
     public int getCountDepartmentEmployee(int department) {
 
-        return (int)employees
+        return (int) employees
                 .stream()
                 .filter(employee -> employee.getDepartment() == department)
                 .count();
@@ -220,7 +193,7 @@ public class EmployeeService {
         getEmployee(name, surname).setDepartment(department);
     }
 
-    public String printEmployee(List<Employee> employees){
+    public String printEmployee(List<Employee> employees) {
         StringBuilder stringBuilder = new StringBuilder();
         employees.forEach(employee -> stringBuilder.append(employee.toString()));
         return stringBuilder.toString();

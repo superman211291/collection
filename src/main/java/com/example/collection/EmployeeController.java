@@ -55,27 +55,9 @@ public class EmployeeController {
 
     @GetMapping("/employee/getAll")
     public String getAllEmployee() {
-        return employeeService.getAll();
+        return employeeService.getAll().toString();
     }
 
-    @GetMapping("/employee/departments/all")
-    public String getDepartmentsAllEmployee() {
-        return employeeService.getDepartmentsAll();
-    }
 
-    @GetMapping("/employee/departments/allByID")
-    public String getDepartmentsAllEmployee(@RequestParam int departmentId) {
-        return employeeService.printEmployee(employeeService.getDepartmentEmployee(departmentId));
-    }
-
-    @GetMapping("/employee/departments/min-salary")
-    public String getDepartmentsMinSalary(@RequestParam int departmentId) {
-        return employeeService.getDepartmentEmployeeMinSalary(departmentId).toString();
-    }
-
-    @GetMapping("/employee/departments/max-salary")
-    public String getDepartmentsMaxSalary(@RequestParam int departmentId) {
-        return employeeService.getDepartmentEmployeeMaxSalary(departmentId).toString();
-    }
 
 }
