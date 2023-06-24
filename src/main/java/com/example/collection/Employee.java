@@ -7,12 +7,32 @@ public class Employee {
     private static int count;
     private String name;
     private String surname;
+    private int department;
+    private double salary;
 
-    public Employee(String name, String surname) {
-            this.name = name;
-            this.surname = surname;
-            this.id = count;
-            count++;
+    public Employee( String name, String surname, int department, double salary) {
+        this.id = count;
+        this.name = name;
+        this.surname = surname;
+        this.department = department;
+        this.salary = salary;
+        count++;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public int getDepartment() {
+        return department;
+    }
+
+    public double getSalary() {
+        return salary;
     }
 
     public int getId() {
@@ -30,7 +50,9 @@ public class Employee {
     @Override
     public String toString() {
         return "{\"firstName\": " + "\"" + name +  "\", "+
-                   "\"lastName\": " + "\"" + surname +  "\" }" ;
+                   "\"lastName\": " + "\"" + surname +  "\" "+
+                     "\"department\": " + "\"" + department +  "\", "+
+                         "\"salary\": " + "\"" + salary +  "\" }";
     }
 
     @Override
