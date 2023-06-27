@@ -87,12 +87,6 @@ public class EmployeeService {
         return getOurSalary() / employees.size();
     }
 
-    private String getFullNameAll() {
-        StringBuilder str = null;
-        employees.stream().forEach(employee -> str.append(employee.getSurname() + " " + employee.getName()));
-        return str.toString();
-    }
-
     public Employee getDepartmentEmployeeMinSalary(int department) {
         return employees
                 .stream()
