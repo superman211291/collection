@@ -2,11 +2,10 @@ package com.example.collection;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Service
 public class EmployeeService {
@@ -64,11 +63,11 @@ public class EmployeeService {
         return employees;
     }
 
-    public List<Employee> getDepartmentsAll() {
+    public Map<Integer, List<Employee>> getDepartmentsAll() {
         return employees
                 .stream()
-                .sorted(Comparator.comparingInt(Employee::getDepartment))
-                .collect(Collectors.toList());
+                .collect(groupingBy(Employee::getDepartment));
+
     }
 
     public void indexingSalary(int percent) {
@@ -123,6 +122,7 @@ public class EmployeeService {
                 .forEach(employee -> employee.setSalary(employee.getSalary() + (employee.getSalary() / 100 * percent)));
 
     }
+
 
     public List<Employee> getDepartmentEmployee(int department) {
         return employees

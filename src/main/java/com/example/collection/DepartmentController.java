@@ -25,20 +25,10 @@ public class DepartmentController {
 
     @GetMapping("/all")
     public String getDepartmentsAllEmployee() {
-        StringBuilder stringBuilder = new StringBuilder();
-        Integer department = employeeService.getDepartmentsAll().stream().findFirst().get().getDepartment();;
-        for (Employee employee : employeeService.getDepartmentsAll()) {
-            if(employee.getDepartment() != department){
-                stringBuilder.append("____________________");
-                stringBuilder.append("\n");
-            }
-            department=employee.getDepartment();
-            stringBuilder.append(employee);
-            stringBuilder.append("\n");
-        }
 
 
-        return stringBuilder.toString();
+
+        return employeeService.getDepartmentsAll().toString();
     }
 
 
