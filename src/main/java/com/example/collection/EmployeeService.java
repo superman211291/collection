@@ -75,7 +75,7 @@ public class EmployeeService {
         employees.forEach(employee -> employee.setSalary(employee.getSalary() + (employee.getSalary() / 100 * percent)));
     }
 
-    public double getOurSalary() {
+    public Double getOurSalary() {
         return employees
                 .stream()
                 .map(Employee::getSalary)
@@ -83,11 +83,11 @@ public class EmployeeService {
                 .sum();
     }
 
-    public double getAverageSalary() {
+    public Double getAverageSalary() {
         return getOurSalary() / employees.size();
     }
 
-    public String getFullNameAll() {
+    private String getFullNameAll() {
         StringBuilder str = null;
         employees.stream().forEach(employee -> str.append(employee.getSurname() + " " + employee.getName()));
         return str.toString();
@@ -109,7 +109,7 @@ public class EmployeeService {
                 .orElseThrow(EmployeeAlreadyAddedException::new);
     }
 
-    public double getDepartmentOurSalary(int department) {
+    public Double getDepartmentOurSalary(int department) {
         return employees
                 .stream()
                 .filter(employee -> employee.getDepartment() == department)
@@ -118,7 +118,7 @@ public class EmployeeService {
                 .sum();
     }
 
-    public double getDepartmentAverageSalary(int department) {
+    public Double getDepartmentAverageSalary(int department) {
         return getDepartmentOurSalary(department) / getCountDepartmentEmployee(department);
     }
 
@@ -171,13 +171,13 @@ public class EmployeeService {
     }
 
 
-    public static double getGeneratedSalary() {
+    public static Double getGeneratedSalary() {
         double leftLimit = 1;
         double rightLimit = 500_000d;
         return leftLimit + (new Random().nextFloat() * (rightLimit - leftLimit));
     }
 
-    public int getCountDepartmentEmployee(int department) {
+    public Integer getCountDepartmentEmployee(int department) {
 
         return (int) employees
                 .stream()
@@ -191,12 +191,6 @@ public class EmployeeService {
 
     public void changeDepartment(String name, String surname, String patronymic, int department) {
         getEmployee(name, surname).setDepartment(department);
-    }
-
-    public String printEmployee(List<Employee> employees) {
-        StringBuilder stringBuilder = new StringBuilder();
-        employees.forEach(employee -> stringBuilder.append(employee.toString()));
-        return stringBuilder.toString();
     }
 
 

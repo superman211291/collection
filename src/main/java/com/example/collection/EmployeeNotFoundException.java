@@ -1,4 +1,4 @@
 package com.example.collection;
 
-public class EmployeeNotFoundException extends RuntimeException{
+public class EmployeeNotFoundException extends RuntimeException {
 }

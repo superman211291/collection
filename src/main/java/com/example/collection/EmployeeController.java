@@ -1,10 +1,9 @@
 package com.example.collection;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -14,13 +13,14 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/employee/hello")
+    @GetMapping("/hello")
     public String hello() {
         return "Привет!";
     }
-    @GetMapping("/employee/add")
-    public String addEmployee(@RequestParam String firstName, @RequestParam String lastName,@RequestParam int department, @RequestParam double salary) {
-        Employee employee = new Employee(firstName, lastName,department,salary);
+
+    @GetMapping("/add")
+    public String addEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int department, @RequestParam double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         try {
             employeeService.addEmployee(employee);
         } catch (EmployeeStorageIsFullException e) {
@@ -31,18 +31,18 @@ public class EmployeeController {
         return employee.toString();
     }
 
-    @GetMapping("/employee/remove")
+    @GetMapping("/remove")
     public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        Employee employee = new Employee(firstName, lastName,1,0.0);
+        Employee employee = new Employee(firstName, lastName, 1, 0.0);
         try {
-            employeeService.deleteEmployee(firstName,lastName);
+            employeeService.deleteEmployee(firstName, lastName);
         } catch (EmployeeNotFoundException e) {
             return "EmployeeNotFound";
         }
         return employee.toString();
     }
 
-    @GetMapping("/employee/find")
+    @GetMapping("/find")
     public String findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
         Employee employee;
         try {
@@ -53,11 +53,10 @@ public class EmployeeController {
         return employee.toString();
     }
 
-    @GetMapping("/employee/getAll")
+    @GetMapping("/getAll")
     public String getAllEmployee() {
         return employeeService.getAll().toString();
     }
-
 
 
 }
