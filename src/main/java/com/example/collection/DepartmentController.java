@@ -25,9 +25,6 @@ public class DepartmentController {
 
     @GetMapping("/all")
     public String getDepartmentsAllEmployee() {
-
-
-
         return employeeService.getDepartmentsAll().toString();
     }
 
