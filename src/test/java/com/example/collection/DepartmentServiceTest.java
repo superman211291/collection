@@ -42,6 +42,25 @@ class DepartmentServiceTest {
         Mockito.verify(employeeService).getDepartmentEmployee(1);
         assertEquals(expected,employees1);
     }
+    @Test
+    void shouldThrowNotFoundDepartmentException() {
+        assertNotNull(employeeService);
+        Mockito.when(employeeService.getDepartmentEmployee(1)).thenReturn(null);
+        assertThrows(NotFoundDepartmentException.class, ()-> departmentService.getDepartmentEmployee(1));
+        Mockito.verify(employeeService).getDepartmentEmployee(1);
+
+        Mockito.when(employeeService.getDepartmentsAll()).thenReturn(null);
+        assertThrows(NotFoundDepartmentException.class, ()-> departmentService.getDepartmentsAll());
+        Mockito.verify(employeeService).getDepartmentsAll();
+
+        Mockito.when(employeeService.getDepartmentEmployeeMinSalary(1)).thenReturn(null);
+        assertThrows(NotFoundDepartmentException.class, ()-> departmentService.getDepartmentEmployeeMinSalary(1));
+        Mockito.verify(employeeService).getDepartmentEmployeeMinSalary(1);
+
+        Mockito.when(employeeService.getDepartmentEmployeeMaxSalary(1)).thenReturn(null);
+        assertThrows(NotFoundDepartmentException.class, ()-> departmentService.getDepartmentEmployeeMaxSalary(1));
+        Mockito.verify(employeeService).getDepartmentEmployeeMaxSalary(1);
+    }
 
     @Test
     void getDepartmentsAll() {
