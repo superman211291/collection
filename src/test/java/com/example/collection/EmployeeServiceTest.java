@@ -11,7 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeServiceTest {
 
-    private final EmployeeService employeeService = new EmployeeService();
+    private EmployeeService employeeService;
+    @BeforeEach
+    public void setUp(){
+        employeeService = new EmployeeService();
+    }
 
     @Test
     void addEmployee() {
