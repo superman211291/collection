@@ -90,7 +90,7 @@ public class EmployeeService {
         return employees
                 .stream()
                 .filter(employee -> employee.getDepartment() == department)
-                .min(Comparator.comparing(Employee::getDepartment))
+                .min(Comparator.comparing(Employee::getSalary))
                 .orElseThrow(EmployeeAlreadyAddedException::new);
     }
 
@@ -98,7 +98,7 @@ public class EmployeeService {
         return employees
                 .stream()
                 .filter(employee -> employee.getDepartment() == department)
-                .max(Comparator.comparing(Employee::getDepartment))
+                .max(Comparator.comparing(Employee::getSalary))
                 .orElseThrow(EmployeeAlreadyAddedException::new);
     }
 

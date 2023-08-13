@@ -1,41 +1,47 @@
 package com.example.collection;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping("/department")
 public class DepartmentController {
 
 
-    private final EmployeeService employeeService;
+    private final DepartmentService departmentService;
 
 
-    public DepartmentController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
-
-    @GetMapping("/allId")
-    public String getDepartmentsAllEmployee(@RequestParam int departmentId) {
-        return employeeService.getDepartmentEmployee(departmentId).toString();
+    @GetMapping("/{id}/employees")
+    public String getDepartmentsIdAllEmployee(@PathVariable("id") String departmentId) {
+        return departmentService.getDepartmentEmployee(Integer.parseInt(departmentId)).toString();
     }
 
-    @GetMapping("/all")
+    @GetMapping("/employees")
     public String getDepartmentsAllEmployee() {
-        return employeeService.getDepartmentsAll().toString();
+        return departmentService.getDepartmentsAll().toString();
+    }
+
+    @GetMapping("/{id}/salary/min")
+    public String getDepartmentsIdMinSalary(@PathVariable("id") String departmentId) {
+        int id = Integer.parseInt(departmentId);
+        Employee employee = departmentService.getDepartmentEmployeeMinSalary(id);
+        return employee.toString();
+    }
+
+    @GetMapping("/{id}/salary/max")
+    public String getDepartmentsIdMaxSalary(@PathVariable("id") String departmentId) {
+        int id = Integer.parseInt(departmentId);
+        Employee employee = departmentService.getDepartmentEmployeeMaxSalary(id);
+        return employee.toString();
+    }
+
+    @GetMapping("/{id}/salary/sum")
+    public String getDepartmentsIdOurSalary(@PathVariable("id") String departmentId) {
+        return departmentService.getDepartmentOurSalary(Integer.parseInt(departmentId)).toString();
     }
 
 
-    @GetMapping("/min-salary")
-    public String getDepartmentsMinSalary(@RequestParam int departmentId) {
-        return employeeService.getDepartmentEmployeeMinSalary(departmentId).toString();
-    }
-
-    @GetMapping("/max-salary")
-    public String getDepartmentsMaxSalary(@RequestParam int departmentId) {
-        return employeeService.getDepartmentEmployeeMaxSalary(departmentId).toString();
-    }
 }
