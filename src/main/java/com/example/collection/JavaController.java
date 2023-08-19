@@ -1,10 +1,9 @@
 package com.example.collection;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/exam/java")
+@RequestMapping("/exam")
 public class JavaController {
 
     private final QuestionService questionService;
@@ -19,60 +18,35 @@ public class JavaController {
         return "Привет!";
     }
 
-    @GetMapping("/add")
-    public String addQuestion(@RequestParam String Question, @RequestParam String Answer) {
-        checkData(Question,Answer);
-        Question question = new Question(StringUtils.capitalize(Question), StringUtils.capitalize(Answer));
+    @GetMapping("/java/add")
+    public String addQuestion(@RequestParam String question, @RequestParam String answer) {
         try {
-            questionService.add(question);
-        } catch (EmployeeStorageIsFullException e) {
-            return "ArrayIsFull";
-        } catch (EmployeeAlreadyAddedException e) {
-            return "QuestionAlreadyAdded";
+            questionService.add(question, answer);
+        } catch (QuestionAlreadyAddedException e) {
+            return "Такой вопрос уже есть!";
+        } catch (DataException e) {
+            return "Ведены некорректные символы!";
         }
-        return question.toString() + "\n" +"Is added!";
+        return question + "\n" + "Вопрос добавлен!";
     }
 
-    @GetMapping("/remove")
-    public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        checkData(firstName,lastName);
-        Question employee = new Question(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), 1, 0.0);
+    @GetMapping("/java/remove")
+    public String removeQuestion(@RequestParam String question, @RequestParam String answer) {
+
+        Question question1 = new Question(question, answer);
         try {
-            questionService.deleteEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
-            return "EmployeeNotFound";
+            questionService.remove(question1);
+        } catch (QuestionNotFoundException e) {
+            return "Вопрос не найден!";
+        } catch (DataException e) {
+            return "Ведены некорректные символы!";
         }
-        return employee.toString();
+        return question + "\n" + "Вопрос удален!";
     }
 
-    @GetMapping("/find")
-    public String findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        checkData(firstName,lastName);
-        Question employee;
-        try {
-            employee = questionService.searchEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName));
-        } catch (EmployeeNotFoundException e) {
-            return "EmployeeNotFound";
-        }
-        return employee.toString();
-    }
-
-    @GetMapping("/getAll")
-    public String getAllEmployee() {
+    @GetMapping("/java")
+    public String getAllQuestions() {
         return questionService.getAll().toString();
-    }
-
-    private void checkData(String firstName, String lastName){
-        char[] russianLetters = new char[64];
-        for (int i = 0; i < 64; i++) {
-            russianLetters[i]= (char)(1040+i);
-        }
-        if(     !StringUtils.containsOnly(firstName, russianLetters) ||
-                !StringUtils.containsOnly(lastName, russianLetters) ){
-             throw new DataException();
-        }
-
-
     }
 
 

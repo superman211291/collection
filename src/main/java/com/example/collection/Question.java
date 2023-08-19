@@ -3,8 +3,8 @@ package com.example.collection;
 import java.util.Objects;
 
 public class Question {
-   private String question;
-   private String answer;
+    private String question;
+    private String answer;
 
     public Question(String question, String answer) {
         this.question = question;
