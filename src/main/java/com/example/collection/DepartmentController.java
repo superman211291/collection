@@ -27,14 +27,14 @@ public class DepartmentController {
     @GetMapping("/{id}/salary/min")
     public String getDepartmentsIdMinSalary(@PathVariable("id") String departmentId) {
         int id = Integer.parseInt(departmentId);
-        Employee employee = departmentService.getDepartmentEmployeeMinSalary(id);
+        Question employee = departmentService.getDepartmentEmployeeMinSalary(id);
         return employee.toString();
     }
 
     @GetMapping("/{id}/salary/max")
     public String getDepartmentsIdMaxSalary(@PathVariable("id") String departmentId) {
         int id = Integer.parseInt(departmentId);
-        Employee employee = departmentService.getDepartmentEmployeeMaxSalary(id);
+        Question employee = departmentService.getDepartmentEmployeeMaxSalary(id);
         return employee.toString();
     }
 

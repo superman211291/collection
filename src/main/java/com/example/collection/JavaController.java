@@ -1,19 +1,17 @@
 package com.example.collection;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/employee")
-public class EmployeeController {
+@RequestMapping("/exam/java")
+public class JavaController {
 
-    private final EmployeeService employeeService;
+    private final QuestionService questionService;
 
 
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public JavaController(QuestionService questionService) {
+        this.questionService = questionService;
     }
 
     @GetMapping("/hello")
@@ -22,25 +20,25 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public String addEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int department, @RequestParam double salary) {
-        checkData(firstName,lastName);
-        Employee employee = new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), department, salary);
+    public String addQuestion(@RequestParam String Question, @RequestParam String Answer) {
+        checkData(Question,Answer);
+        Question question = new Question(StringUtils.capitalize(Question), StringUtils.capitalize(Answer));
         try {
-            employeeService.addEmployee(employee);
+            questionService.add(question);
         } catch (EmployeeStorageIsFullException e) {
             return "ArrayIsFull";
         } catch (EmployeeAlreadyAddedException e) {
-            return "EmployeeAlreadyAdded";
+            return "QuestionAlreadyAdded";
         }
-        return employee.toString();
+        return question.toString() + "\n" +"Is added!";
     }
 
     @GetMapping("/remove")
     public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
         checkData(firstName,lastName);
-        Employee employee = new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), 1, 0.0);
+        Question employee = new Question(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), 1, 0.0);
         try {
-            employeeService.deleteEmployee(firstName, lastName);
+            questionService.deleteEmployee(firstName, lastName);
         } catch (EmployeeNotFoundException e) {
             return "EmployeeNotFound";
         }
@@ -50,9 +48,9 @@ public class EmployeeController {
     @GetMapping("/find")
     public String findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
         checkData(firstName,lastName);
-        Employee employee;
+        Question employee;
         try {
-            employee = employeeService.searchEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName));
+            employee = questionService.searchEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName));
         } catch (EmployeeNotFoundException e) {
             return "EmployeeNotFound";
         }
@@ -61,7 +59,7 @@ public class EmployeeController {
 
     @GetMapping("/getAll")
     public String getAllEmployee() {
-        return employeeService.getAll().toString();
+        return questionService.getAll().toString();
     }
 
     private void checkData(String firstName, String lastName){

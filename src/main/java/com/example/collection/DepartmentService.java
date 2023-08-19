@@ -7,38 +7,38 @@ import java.util.Map;
 
 @Service
 public class DepartmentService {
-    private final EmployeeService employeeService;
+    private final QuestionService employeeService;
 
-    public DepartmentService(EmployeeService employeeService) {
+    public DepartmentService(QuestionService employeeService) {
         this.employeeService = employeeService;
     }
 
-    public List<Employee> getDepartmentEmployee(int id){
-        List<Employee> employees = employeeService.getDepartmentEmployee(id);
+    public List<Question> getDepartmentEmployee(int id){
+        List<Question> employees = employeeService.getDepartmentEmployee(id);
         if (employees == null){
             throw  new NotFoundDepartmentException();
         }
         return employees;
     }
 
-    public Map<Integer, List<Employee>> getDepartmentsAll(){
-        Map<Integer, List<Employee>> employees = employeeService.getDepartmentsAll();
+    public Map<Integer, List<Question>> getDepartmentsAll(){
+        Map<Integer, List<Question>> employees = employeeService.getDepartmentsAll();
         if (employees == null){
             throw  new NotFoundDepartmentException();
         }
         return employees;
     }
 
-    public Employee getDepartmentEmployeeMinSalary(int id){
-        Employee employees = employeeService.getDepartmentEmployeeMinSalary(id);
+    public Question getDepartmentEmployeeMinSalary(int id){
+        Question employees = employeeService.getDepartmentEmployeeMinSalary(id);
         if (employees == null){
             throw  new NotFoundDepartmentException();
         }
         return employees;
     }
 
-    public Employee getDepartmentEmployeeMaxSalary(int id){
-        Employee employees = employeeService.getDepartmentEmployeeMaxSalary(id);
+    public Question getDepartmentEmployeeMaxSalary(int id){
+        Question employees = employeeService.getDepartmentEmployeeMaxSalary(id);
         if (employees == null){
             throw  new NotFoundDepartmentException();
         }
