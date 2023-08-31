@@ -1,4 +1,4 @@
-package com.example.collection;
+package ru.hogwarts.school;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

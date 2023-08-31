@@ -1,9 +1,8 @@
-package com.example.collection;
+package ru.hogwarts.school;
 
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 

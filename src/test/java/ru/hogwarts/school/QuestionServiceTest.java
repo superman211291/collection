@@ -1,4 +1,4 @@
-package com.example.collection;
+package ru.hogwarts.school;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +22,7 @@ class QuestionServiceTest {
         Question question = new Question("Илья","Строев");
         questionService.add(question);
         Collection<Question> resultQuestions = questionService.getAll();
-        Assertions.assertEquals(question, new ArrayList<>(resultQuestions).get(0));
+        assertEquals(question, new ArrayList<>(resultQuestions).get(0));
 
 
     }
@@ -34,7 +32,7 @@ class QuestionServiceTest {
         Question question = new Question("Илья","Строев");
         questionService.add("Илья","Строев");
         Collection<Question>resultQuestions = questionService.getAll();
-        Assertions.assertEquals(question, new ArrayList<>(resultQuestions).get(0));
+        assertEquals(question, new ArrayList<>(resultQuestions).get(0));
     }
 
     @Test
@@ -50,7 +48,7 @@ class QuestionServiceTest {
         Question question = new Question("Илья","Строев");
         questionService.add(question);
         Question resultEmployee = new ArrayList<>(questionService.getAll()).get(0);
-        Assertions.assertEquals(question,resultEmployee);
+        assertEquals(question,resultEmployee);
         questionService.remove(new Question("Илья","Строев"));
         Collection<Question> resultList = questionService.getAll();
         Assertions.assertEquals(0,resultList.size());

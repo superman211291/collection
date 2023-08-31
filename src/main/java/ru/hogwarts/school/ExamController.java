@@ -1,4 +1,4 @@
-package com.example.collection;
+package ru.hogwarts.school;
 
 import org.springframework.web.bind.annotation.*;
 

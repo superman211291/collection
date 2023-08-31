@@ -1,11 +1,10 @@
-package com.example.collection;
+package ru.hogwarts.school;
 
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {

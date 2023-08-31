@@ -1,4 +1,4 @@
-package com.example.collection;
+package ru.hogwarts.school;
 
 public class BadRequest extends RuntimeException{
 }
