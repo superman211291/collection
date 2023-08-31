@@ -2,6 +2,7 @@ package ru.hogwarts.school;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.service.StudentNotFoundException;
 
 import java.util.*;
 
@@ -43,7 +44,7 @@ public class JavaQuestionService implements QuestionService {
 
     private void checkNotContains(Question question1) {
         if (!questions.contains(question1)) {
-            throw new QuestionNotFoundException();
+            throw new StudentNotFoundException();
         }
     }
 

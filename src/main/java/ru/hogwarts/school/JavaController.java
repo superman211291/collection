@@ -1,6 +1,7 @@
 package ru.hogwarts.school;
 
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.service.StudentNotFoundException;
 
 @RestController
 @RequestMapping("/exam")
@@ -36,7 +37,7 @@ public class JavaController {
         Question question1 = new Question(question, answer);
         try {
             questionService.remove(question1);
-        } catch (QuestionNotFoundException e) {
+        } catch (StudentNotFoundException e) {
             return "Вопрос не найден!";
         } catch (DataException e) {
             return "Ведены некорректные символы!";

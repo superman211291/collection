@@ -3,6 +3,7 @@ package ru.hogwarts.school;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.hogwarts.school.service.StudentNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,7 +59,7 @@ class QuestionServiceTest {
     void shouldThrowQuestionNotFoundException() {
         Question question = new Question("Илья","Строев");
         questionService.add(question);
-        assertThrows(QuestionNotFoundException.class, ()-> questionService.remove(new Question("Федор","Петров")));
+        assertThrows(StudentNotFoundException.class, ()-> questionService.remove(new Question("Федор","Петров")));
     }
 
     @Test
