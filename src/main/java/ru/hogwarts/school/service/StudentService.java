@@ -1,47 +1,45 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
+@Service
 public class StudentService {
 
     private final Map<Long, Student> studentMap = new HashMap<>();
 
-    public Student create(String name, int age) {
-        checkIllegal(name, age);
-        Student student = new Student(name, age);
+    public Student create(Student student) {
+       // checkIllegal(student.getName(), student.getAge());
         studentMap.put(student.getId(), student);
         return student;
     }
 
-    public Student delete(String name, int age) {
-        checkIllegal(name, age);
-        Student student = new Student(name, age);
-        checkNotFound(student);
-        return studentMap.remove(student.getId());
+    public Student delete(Long id) {
+        return studentMap.remove(id);
     }
 
-    public Student update(String oldName, int oldAge, String name, int age) {
-        checkIllegal(oldName, oldAge);
-        checkIllegal(name, age);
-        Student student = new Student(oldName, oldAge);
-        Student newStudent = new Student(name, age);
-        newStudent.setId(student.getId());
-        checkNotFound(student);
-        return studentMap.put(newStudent.getId(), newStudent);
+    public Student update(Student student) {
+        //checkIllegal(student.getName(), student.getAge());
+        //checkNotFound(student);
+        return studentMap.put(student.getId(), student);
     }
 
     public Student read(long id) {
-        if (id >= 0) {
+       // if (id >= 0) {
             Student student = studentMap.get(id);
             checkNotFound(student);
             return student;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        //} else {
+         //   throw new IllegalArgumentException();
+        //}
+    }
+
+    public Collection<Student> getAll(){
+        return studentMap.values();
     }
 
     private void checkIllegal(String name, int age) {
@@ -51,8 +49,8 @@ public class StudentService {
     }
 
     private void checkNotFound(Student student) {
-        if (!studentMap.containsValue(student)) {
-            throw new IllegalArgumentException();
+        if (studentMap.get(student.getId())==null) {
+            throw new StudentNotFoundException();
         }
     }
 

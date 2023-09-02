@@ -9,8 +9,8 @@ public class Student {
 
 
 
-    public Student(String name, int age) {
-        this.id = (long) hashCode();
+    public Student(Long id, String name, int age) {
+        this.id = id;
         this.name = name;
         this.age = age;
     }
@@ -31,9 +31,7 @@ public class Student {
         this.age = age;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     public void setName(String name) {
         this.name = name;

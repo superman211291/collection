@@ -1,38 +1,31 @@
 package ru.hogwarts.school.service;
 
 
+import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
+@Service
 public class FacultyService {
     private final Map<Long, Faculty> facultyMap = new HashMap<>();
 
-    public Faculty create(String name, String color) {
-        checkIllegal(name, color);
-        Faculty faculty = new Faculty(name, color);
-        facultyMap.put(faculty.getId(), faculty);
-        return faculty;
+    public Faculty create(Faculty faculty) {
+        checkIllegal(faculty.getName(), faculty.getColor());
+        return facultyMap.put(faculty.getId(), faculty);
 
     }
 
-    public Faculty delete(String name, String color) {
-        checkIllegal(name, color);
-        Faculty faculty = new Faculty(name, color);
-        checkNotFound(faculty);
-        return facultyMap.remove(faculty.getId());
+    public Faculty delete(Long id) {
+        return facultyMap.remove(id);
     }
 
-    public Faculty update(String oldName, String oldColor, String name, String color) {
-        checkIllegal(oldName, oldColor);
-        checkIllegal(name, color);
-        Faculty faculty = new Faculty(oldName, oldColor);
-        Faculty newFaculty = new Faculty(name, color);
-        newFaculty.setId(faculty.getId());
+    public Faculty update(Faculty faculty) {
+        checkIllegal(faculty.getName(), faculty.getColor());
         checkNotFound(faculty);
-        return facultyMap.put(newFaculty.getId(), newFaculty);
+        return facultyMap.put(faculty.getId(), faculty);
     }
 
     public Faculty read(long id) {
@@ -45,6 +38,10 @@ public class FacultyService {
         }
     }
 
+    public Collection<Faculty> getAll(){
+        return facultyMap.values();
+    }
+
     private void checkIllegal(String name, String color) {
         if (name == null || color == null) {
             throw new IllegalArgumentException();
@@ -52,8 +49,8 @@ public class FacultyService {
     }
 
     private void checkNotFound(Faculty faculty) {
-        if (!facultyMap.containsValue(faculty)) {
-            throw new IllegalArgumentException();
+        if (facultyMap.get(faculty.getId())==null) {
+            throw new FacultyNotFoundException();
         }
     }
 }
