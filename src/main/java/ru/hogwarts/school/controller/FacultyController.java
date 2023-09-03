@@ -51,4 +51,9 @@ public class FacultyController {
     public Faculty deleteStudent(@PathVariable Long id){
         return facultyService.delete(id);
     }
+
+    @GetMapping("/findColor/{color}")
+    public ResponseEntity<Collection<Faculty>> getFacultyByColor(@PathVariable String color) {
+        return ResponseEntity.ok(facultyService.findByColor(color));
+    }
 }
