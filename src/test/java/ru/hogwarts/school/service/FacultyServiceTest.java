@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ class FacultyServiceTest {
     private Faculty faculty;
     @BeforeEach
     public void setUp(){
-        facultyService = new FacultyService();
+        facultyService = new FacultyService(facultyRepository);
         faculty = new Faculty(0l,"Grifindor","Red");
         facultyService.create(faculty);
     }
