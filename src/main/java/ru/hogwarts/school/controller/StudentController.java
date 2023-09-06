@@ -8,6 +8,7 @@ import ru.hogwarts.school.service.StudentNotFoundException;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("student")
@@ -30,7 +31,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Student>> getAllStudent() {
+    public ResponseEntity<List<Student>> getAllStudent() {
         return ResponseEntity.ok(studentService.getAll());
     }
 
