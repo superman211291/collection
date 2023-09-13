@@ -56,7 +56,7 @@ public class StudentController {
     }
 
     @GetMapping("/findAge/{age}")
-    public ResponseEntity<Collection<Student>> getStudentByAge(@PathVariable Long age) {
+    public ResponseEntity<Collection<Student>> getStudentByAge(@PathVariable int age) {
         return ResponseEntity.ok(studentService.findByAge(age));
     }
 

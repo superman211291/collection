@@ -1,18 +1,22 @@
 package ru.hogwarts.school.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 @Entity
+@Getter
+@Setter
 public class Student {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
     private  String name;
     private int age;
-
-
 
     public Student(Long id, String name, int age) {
         this.id = id;
@@ -20,34 +24,16 @@ public class Student {
         this.age = age;
     }
 
-    public Long getId() {
-        return id;
+    public Student() {
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return age == student.age &&  Objects.equals(name, student.name);
+        return age == student.age && Objects.equals(name, student.name);
     }
 
     @Override

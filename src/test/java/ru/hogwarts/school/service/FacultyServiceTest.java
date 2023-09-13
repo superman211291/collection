@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class FacultyServiceTest {
     private FacultyService facultyService;
+    private FacultyRepository facultyRepository;
     private Faculty faculty;
     @BeforeEach
     public void setUp(){

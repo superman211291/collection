@@ -46,7 +46,7 @@ public class StudentService {
         return stList;
     }
 
-    public Collection<Student> findByAge(Long age) {
+    public Collection<Student> findByAge(int age) {
         return studentRepository.findByAge(age);
     }
 }
