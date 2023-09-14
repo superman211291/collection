@@ -21,13 +21,11 @@ public class StudentController {
 
     @GetMapping("{id}")
     public ResponseEntity<Student> getStudentInfo(@PathVariable Long id) {
-        try {
             Student student = studentService.read(id);
+            if (student == null) {
+             ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
             return ResponseEntity.ok(student);
-        } catch (IllegalArgumentException | StudentNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
-
     }
 
     @GetMapping
@@ -42,17 +40,21 @@ public class StudentController {
 
     @PutMapping
     public ResponseEntity<Student> editStudent(@RequestBody Student student) {
-        try {
             Student student1 = studentService.update(student);
+            if (student1==null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
             return ResponseEntity.ok(student1);
-        } catch (IllegalArgumentException | StudentNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+
     }
 
     @DeleteMapping("{id}")
-    public Student deleteStudent(@PathVariable Long id) {
-        return studentService.delete(id);
+    public ResponseEntity<Student> deleteStudent(@PathVariable Long id) {
+        Student student1 = studentService.delete(id);
+        if (student1 == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(student1);
     }
 
     @GetMapping("/findAge/{age}")
