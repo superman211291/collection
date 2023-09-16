@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.Collection;
 public class FacultyController {
     private final FacultyService facultyService;
 
+    @Autowired
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
     }
@@ -62,4 +64,14 @@ public class FacultyController {
     public ResponseEntity<Collection<Faculty>> getFacultyByColor(@PathVariable String color) {
         return ResponseEntity.ok(facultyService.findByColor(color));
     }
+
+    @GetMapping("/findColor/{colorOrName}")
+    public ResponseEntity<Collection<Faculty>> getFacultyByColorOrNameIgnoreCase(@PathVariable String colorOrName) {
+        return ResponseEntity.ok(facultyService.findByColorOrNameIgnoreCase(colorOrName));
+    }
+
+//    @GetMapping("/getStudents/{id}")
+//    public ResponseEntity<Collection<Student>> getFacultyStudents(@PathVariable Long id) {
+//        return ResponseEntity.ok(facultyService.getFacultyStudents(id));
+//    }
 }

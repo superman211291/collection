@@ -1,8 +1,10 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentNotFoundException;
 import ru.hogwarts.school.service.StudentService;
@@ -14,7 +16,7 @@ import java.util.List;
 @RequestMapping("student")
 public class StudentController {
     private final StudentService studentService;
-
+    @Autowired
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -61,6 +63,20 @@ public class StudentController {
     public ResponseEntity<Collection<Student>> getStudentByAge(@PathVariable int age) {
         return ResponseEntity.ok(studentService.findByAge(age));
     }
+
+    @GetMapping("/findAgeBetween/{ageMin}{ageMax}")
+    public ResponseEntity<Collection<Student>> getStudentByAgeBetween(@PathVariable int ageMin,@PathVariable int ageMax) {
+        Collection<Student> students =studentService.findByAgeBetween(ageMin,ageMax);
+        if (students==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(students);
+    }
+//    @GetMapping("/getStudentFaculty/{id}")
+//    public ResponseEntity<Faculty> getStudentFaculty(@PathVariable Long id) {
+//        return ResponseEntity.ok(studentService.getFaculty(id));
+//    }
+
 
 
 }

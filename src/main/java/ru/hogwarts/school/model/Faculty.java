@@ -3,11 +3,10 @@ package ru.hogwarts.school.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
+
 @Entity
 @Setter
 @Getter
@@ -17,6 +16,9 @@ public class Faculty {
     private  Long id;
     private  String name;
     private  String color;
+
+    @OneToMany(mappedBy = "faculty")
+    private Set<Student> students;
 
     public Faculty( Long id, String name, String color) {
         this.id = id;
